@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+{% load static %}
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    .blog_post {
+      border: 2px solid silver;
+      padding: 10px;
+      border-radius: 20px;
+      background-color: #f5f5f0;
+
+
+    }
+
+    .sidePost {
+      border: 2px solid silver;
+      padding: 10px;
+      border-radius: 20px;
+      background-color: #f5f5f0;
+      /* margin-right: .5em; */
+      height: auto;
+
+
+    }
+  </style>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+  <title>TechWorld</title>
+</head>
+
+<body>
+  
+
+<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-link  text-white" href="/"><img style="margin-right: .5em;"  class="rounded-circle " height="65px" width="65px" src="{% static 'img/techworldLogo.jpg' %}" alt=""> TechWorld</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-auto ">
+          <li class="nav-item ">
+            <a class="nav-link active text-white" aria-current="page" href="/">Home</a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              Categorey
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="category/business">Business</a></li>
+              <li><a class="dropdown-item" href="category/sports">Sports</a></li>
+               <li><a class="dropdown-item" href="category/gernal">Gernal</a></li>
+              <li><a class="dropdown-item" href="category/tech">Tech</a></li>
+            </ul>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link text-white" href="contact">Contact-us</a>
+          </li>
+          {% if user.is_authenticated %}
+          <li class="nav-item ">
+            <a class="nav-link text-white " href="logout">Logout</a>
+          </li>
+          {%else%}
+          <li class="nav-item ">
+            <a class="nav-link text-white " href="login">Login</a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link text-white " href="signup">Singup</a>
+          </li>
+          {%endif%}
+
+        </ul>
+        <form action="search" method="GET" class="d-flex">
+          <input required name="search" class="form-control me-2" type="search" placeholder="Search"
+            aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+
+
+
+      </div>
+    </div>
+  </nav>
+  {%if messages%}
+  {% for m in messages %}
+  <div class="alert alert-success" role="alert">
+    {{m}}
+  </div>
+  {%endfor%}
+
+  {%endif%}
+
+
+  <div class="container-fluid mt-2">
+    <div class="row">
+      <div class="col-md-12">
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+              aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+              aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+              aria-label="Slide 3"></button>
+          </div>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+           {% for i in car %}
+              <img width="100%" height='400px' src="/media/{{i.carouselimg1}}" class="d-block w-100" alt="...">
+
+            </div>
+            <div class="carousel-item">
+              <img width="100%" height='400px' src="/media/{{i.carouselimg2}}" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+              <img width="100%" height='400px' src="/media/{{i.carouselimg3}}" class="d-block w-100" alt="...">
+            </div>
+            {% endfor %}
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- end of carousel  -->
+  <br><br>
+
+  <div class="container-fluid">
+
+    <div class="row">
+      <div class="col-md-2 sidePost mt-4">
+
+        <h2>Categories</h2>
+        <hr>
+        <a href="category/sports">
+          <h5>Sports</h5>
+        </a>
+        <a href="category/business">
+          <h5>Business</h5>
+        </a>
+        <a href="category/gernal">
+          <h5>Gernal</h5>
+        </a>
+        <a href="category/tech">
+          <h5>Tech</h5>
+        </a>
+
+
+
+      </div>
+      <div class="col-md-4 mt-5 mx-auto">
+        <h2>Recents Topics</h4>
+          <hr>
+
+      </div>
+
+    </div>
+
+
+
+
+    {% for blogs in blogs %}
+    <div class="row">
+
+
+
+      <div class="col-md-6 mx-auto blog_post mt-3">
+
+        <div class="title">
+       <a class="text-dark" style="text-decoration: none;" href="Blogs/{{blogs.id}}"><h2>{{blogs.title}}</h2></a>
+        </div>
+        <div class="date ">
+          published on {{blogs.Date}} || <b>{{blogs.category}}</b>
+        </div>
+        <div class="psot_img mt-2 ">
+          <a href="Blogs/{{blogs.id}}"> <img width="1500px" height='250px' src="/media/{{blogs.img}}" class="d-block w-100" alt="..."> </a> 
+        </div>
+        <div class="desc mt-2">
+          <p>
+            {{blogs.desc | truncatechars:200}} ....
+            <br>
+            <a class="btn btn-outline-success" href="Blogs/{{blogs.id}}">Read More</a>
+          </p>
+        </div>
+
+
+      </div>
+
+
+
+
+
+
+
+    </div>
+    {% endfor %}
+
+
+  </div>
+  <br><br>
+
+  <footer style="padding: 10px;" class="container-fluid bg-dark text-white">
+    <small>&copy; Copyright 2021, TechWorld.com</small>
+
+  </footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Optional JavaScript; choose one of the two! -->
+
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+    crossorigin="anonymous"></script>
+
+  <!-- Option 2: Separate Popper and Bootstrap JS -->
+  <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous"></script>
+    -->
+</body>
+
+</html>
